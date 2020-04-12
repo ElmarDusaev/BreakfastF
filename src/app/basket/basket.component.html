@@ -1,0 +1,100 @@
+<div class="container">
+
+
+<h2 class="mt-5">Оформление заказа</h2>
+  <div class="line"></div>
+
+
+  <div class="row mb-5">
+
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Наименование</th>
+          <th>Количество</th>
+          <th>Цена</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let b of Basket">
+          <td>{{b.name}}</td>
+          <td><span class="icon-remove" (click)="Decrease(b.id)"></span> {{b.qty}} <span class="icon-add" (click)="Increase(b.id)"></span></td>
+          <td>{{b.price | number: '0.2-2'}}</td>
+          <td><span class="icon-cross" (click)="Remove(b.id)"></span></td>
+        </tr>
+        <tr>
+          <td>ИТОГО</td>
+          <td></td>
+          <td>{{Total | number: '0.2-2'}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+
+
+    <div class="col-md-12">
+      <h4 class="mt-1">Пожалуйста, укажите ваши данные</h4>
+      <div class="line"></div>
+  <form [formGroup]="form" (ngSubmit)="createOrder()">
+    <div class="form-group">
+      <label for="Address">Адрес</label>
+      <input type="text" #MyAddress class="form-control" name="Address" id="Address" [(ngModel)]="orderInformation.Address"
+             placeholder="Укажите адрес доставки" formControlName="Address">
+      <button type="button" (click)="ShowMap=!ShowMap"
+              class="btn btn-link right">{{ShowMap ? 'Свернуть' : 'Указать на карте'}}</button>
+      <div *ngIf="ShowMap">
+        <agm-map [longitude]="39.17725485268482" [latitude]="51.65680572083845" [zoom]="15"
+                 (mapClick)="SetMarker($event)" class="map">
+          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+      </div>
+      <div class="invalid-feedback" style="display: block" *ngIf="form.get('Address').invalid && form.get('Address').touched">
+        Пожалуйста, заполните поле адрес
+      </div>
+    </div>
+
+      <div class="form-group">
+        <label for="Name">Имя</label>
+        <input type="text" class="form-control" name="Name" id="Name" formControlName="Name"
+               placeholder="Укажите ваше имя">
+        <div class="invalid-feedback" style="display: block" *ngIf="form.get('Name').invalid && form.get('Name').touched">
+          Пожалуйста, заполните поле имя
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="Phone">Телефон</label>
+        <input type="text" class="form-control" name="Phone" id="Phone"
+               placeholder="Введите номер телефона в формате (123) 456-7890" formControlName="Phone" [textMask]="{mask: mask}">
+        <div class="invalid-feedback" style="display: block" *ngIf="form.get('Phone').invalid && form.get('Phone').touched">
+          Пожалуйста, заполните поле Телефон
+        </div>
+      </div>
+
+    <div class="form-group">
+      <label for="DeliveryTime">Дата и время доставки</label>
+<!--      <input [owlDateTimeTrigger]="dt" (dateTimeInput)="AddDateTIme($event)" [owlDateTime]="dt" class="form-control" placeholder="Укажите дату и время доставки" name="DeliveryTime" id="DeliveryTime">-->
+      <input [owlDateTimeTrigger]="dt"  [owlDateTime]="dt" class="form-control" placeholder="Укажите дату и время доставки" name="DeliveryTime" id="DeliveryTime" formControlName="DeliveryTime">
+      <owl-date-time #dt></owl-date-time>
+      <div class="invalid-feedback" style="display: block" *ngIf="form.get('DeliveryTime').invalid && form.get('DeliveryTime').touched">
+        Пожалуйста, заполните поле дата
+      </div>
+    </div>
+
+    <button class="btn btn-outline-dark right" type="submit" [disabled]="form.invalid">Оформить заказ</button>
+
+  </form>
+
+
+    </div>
+
+  </div>
+
+
+</div>
+
+

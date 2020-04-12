@@ -1,0 +1,41 @@
+@import "../../../variables";
+
+h2, h5 {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  color: $TextGrayColor;
+  margin-top: 20px;
+}
+
+.icon-stargrade {
+  color: $mainColor;
+}
+
+.products {
+
+  font-family: 'Roboto', sans-serif;
+
+  &__category {
+    font-weight: 500;
+
+    li a {
+      display: inline-block;
+      color: $mainColor;
+      margin: 15px;
+    }
+  }
+
+  &__list {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+
+
+
+
+

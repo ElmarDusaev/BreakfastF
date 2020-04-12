@@ -1,0 +1,26 @@
+<div class="item">
+  <div class="photo">
+    <img  src="{{data.image}}" alt="{{data.name}}">
+  </div>
+  <div class="body">
+    <div class="title" *ngIf="data.name.length>25; else NormName">{{data.name | slice:0:20}} ...</div>
+    <ng-template #NormName>
+      <div class="title">{{data.name}}</div>
+    </ng-template>
+<!--    <div class="desc">-->
+<!--        {{data.description | slice:0:150}}-->
+<!--    </div>-->
+    <div class="rating">
+      <span class="icon-stargrade"></span> {{data.stars}}
+      <span class="icon-local_grocery_storeshopping_cart"></span> {{data.inBasket}}
+    </div>
+
+    <!--        <div class="qty">-->
+    <!--          <button class="icon-remove"></button>-->
+    <!--          <span> 1 </span>-->
+    <!--          <button class="icon-add"></button>-->
+    <!--        </div>-->
+    <div class="price">{{data.price}} руб</div>
+  </div>
+  <button class="add" (click)="AddProduct($event)" value="{{data.id}}"> Добавить</button>
+</div>

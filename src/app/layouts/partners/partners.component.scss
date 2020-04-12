@@ -1,0 +1,14 @@
+@import "../../../variables";
+
+h2, h5 {
+  font-size: 26px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  color: $TextGrayColor;
+  margin-top: 20px;
+}
+
+img{
+  width: 70%;
+}

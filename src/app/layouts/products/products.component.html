@@ -1,0 +1,19 @@
+<section class="products">
+  <div class="container">
+<h2>Сегодня в меню</h2>
+<h5>Выберите завтрак</h5>
+<div>
+    <ul class="products__category">
+      <li *ngFor="let c of data.categories"><a style="cursor: pointer" (click)="filter = c.id">#{{c.name}}</a></li>
+    </ul>
+</div>
+    <div class="products__list">
+
+
+    <app-product *ngFor="let p of data.products | productsfilter: filter" [data]="p"></app-product>
+
+    </div>
+
+  </div>
+</section>
+<div class="line"></div>
