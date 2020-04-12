@@ -1,11 +1,15 @@
 <div class="container">
 
 
-<h2 class="mt-5">Оформление заказа</h2>
-  <div class="line"></div>
 
+<ng-container *ngIf="orderResult.Status; then OrderSuccess; else OrderForm">
+</ng-container>
 
-  <div class="row mb-5">
+  <ng-template #OrderForm>
+    <h2 class="mt-5">Оформление заказа</h2>
+    <div class="line"></div>
+
+    <div class="row mb-5">
 
     <div class="col-md-12">
       <table class="table">
@@ -59,7 +63,7 @@
 
       <div class="form-group">
         <label for="Name">Имя</label>
-        <input type="text" class="form-control" name="Name" id="Name" formControlName="Name"
+        <input type="text" class="form-control" name="Name" id="Name" formControlName="Name" #MyName
                placeholder="Укажите ваше имя">
         <div class="invalid-feedback" style="display: block" *ngIf="form.get('Name').invalid && form.get('Name').touched">
           Пожалуйста, заполните поле имя
@@ -68,7 +72,7 @@
 
       <div class="form-group">
         <label for="Phone">Телефон</label>
-        <input type="text" class="form-control" name="Phone" id="Phone"
+        <input type="text" class="form-control" name="Phone" id="Phone" #MyPhone
                placeholder="Введите номер телефона в формате (123) 456-7890" formControlName="Phone" [textMask]="{mask: mask}">
         <div class="invalid-feedback" style="display: block" *ngIf="form.get('Phone').invalid && form.get('Phone').touched">
           Пожалуйста, заполните поле Телефон
@@ -78,7 +82,7 @@
     <div class="form-group">
       <label for="DeliveryTime">Дата и время доставки</label>
 <!--      <input [owlDateTimeTrigger]="dt" (dateTimeInput)="AddDateTIme($event)" [owlDateTime]="dt" class="form-control" placeholder="Укажите дату и время доставки" name="DeliveryTime" id="DeliveryTime">-->
-      <input [owlDateTimeTrigger]="dt"  [owlDateTime]="dt" class="form-control" placeholder="Укажите дату и время доставки" name="DeliveryTime" id="DeliveryTime" formControlName="DeliveryTime">
+      <input [owlDateTimeTrigger]="dt" #MyDeliveryTime  [owlDateTime]="dt" class="form-control" placeholder="Укажите дату и время доставки" name="DeliveryTime" id="DeliveryTime" formControlName="DeliveryTime">
       <owl-date-time #dt></owl-date-time>
       <div class="invalid-feedback" style="display: block" *ngIf="form.get('DeliveryTime').invalid && form.get('DeliveryTime').touched">
         Пожалуйста, заполните поле дата
@@ -93,6 +97,49 @@
     </div>
 
   </div>
+  </ng-template>
+
+  <ng-template #OrderSuccess>
+    <h2 class="mt-5">Заказ принят</h2>
+    <div class="line"></div>
+<div class="d-flex justify-content-center">
+    <div class="border p-3">
+        <div>
+          <h5>Уважаемый Сириус Блэк</h5>
+<div class="row">
+<div class="col">
+
+          <table class="mt-3 invoice">
+            <tr>
+              <td>Ваш заказ №:</td>
+              <td>456</td>
+            </tr>
+            <tr>
+              <td>Дата доставки:</td>
+              <td>24 04 2020</td>
+            </tr>
+            <tr>
+              <td>Время доставки:</td>
+              <td>8:00</td>
+            </tr>
+            <tr>
+              <td>Сумма:</td>
+              <td>1 250 руб</td>
+            </tr>
+          </table>
+</div>
+<div class="col">
+  <img src="../../assets/img/RIcardo.jpg" alt="Success">
+</div>
+</div>
+        </div>
+<div class="mt-3 d-flex justify-content-center">
+      <button class="btn btn-success " (click)="Thanks()">Спасибо</button>
+</div>
+    </div>
+
+    </div>
+  </ng-template>
 
 
 </div>

@@ -1,11 +1,11 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {IOrderInformation} from '../models/IOrderInformation';
 import {ApibasketService} from '../services/apibasket.service';
 import {IBasket} from '../models/IBasket';
-import {Observable} from 'rxjs';
 import {ApiorderService} from '../services/apiorder.service';
 import {IOrderResult} from '../models/IOrderResult';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 declare let google: any;
 
@@ -20,14 +20,17 @@ export class BasketComponent implements OnInit {
   lng;
   ShowMap = false;
   orderInformation: IOrderInformation;
-  orderResult: IOrderResult;
+  orderResult: IOrderResult = new IOrderResult();
   Basket: IBasket[];
   public Total = 0;
   @ViewChild('MyAddress', {static: false}) MyAddress: ElementRef;
+  @ViewChild('MyName', {static: false}) MyName: ElementRef;
+  @ViewChild('MyPhone', {static: false}) MyPhone: ElementRef;
+  @ViewChild('MyDeliveryTime', {static: false}) MyDeliveryTime: ElementRef;
   form: FormGroup;
   mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
-  constructor(private apibasket: ApibasketService, private apiorder: ApiorderService) {
+  constructor(private apibasket: ApibasketService, private apiorder: ApiorderService, private route: Router) {
   }
 
 
@@ -42,7 +45,7 @@ export class BasketComponent implements OnInit {
 
     this.apibasket.getAllFromBasket().subscribe(data => {
       this.Basket = data;
-        data.forEach((item) => {
+      data.forEach((item) => {
           this.Total = this.Total + item.price * item.qty;
       });
     });
@@ -57,14 +60,14 @@ export class BasketComponent implements OnInit {
     this.orderInformation.Latitude = this.lat;
     this.orderInformation.Longtitude = this.lng;
 
-    let geocoder = new google.maps.Geocoder();
-    let latlng = new google.maps.LatLng(this.lat, this.lng);
-    let request = { latLng: latlng };
+    const geocoder = new google.maps.Geocoder();
+    const latlng = new google.maps.LatLng(this.lat, this.lng);
+    const request = { latLng: latlng };
 
     geocoder.geocode(request, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
-        let result = results[0];
-        let address = result.formatted_address;
+        const result = results[0];
+        const address = result.formatted_address;
         this.MyAddress.nativeElement.value = address;
         this.orderInformation.Address = address;
       }
@@ -83,10 +86,16 @@ export class BasketComponent implements OnInit {
 
       this.apiorder.createOrder(this.orderInformation).subscribe({
         next: data => {
+          this.lat = null;
+          this.lng = null;
           this.Basket = null;
           this.MyAddress.nativeElement.value = '';
+          this.MyName.nativeElement.value = '';
+          this.MyPhone.nativeElement.value = '';
+          this.MyDeliveryTime.nativeElement.value = '';
           this.Total = 0;
-          console.log(data);
+          this.orderResult = data;
+          this.orderResult.Status = true;
 
         },
         error: e => console.error(e)
@@ -123,7 +132,7 @@ export class BasketComponent implements OnInit {
 
   Remove(id: number) {
     this.apibasket.Remove(id).subscribe(data => {
-      if(data) {
+      if (data) {
         const index = this.Basket.findIndex(d => d.id === id);
         this.Basket.splice(index, 1);
         this.CalcTotal();
@@ -136,4 +145,8 @@ export class BasketComponent implements OnInit {
     this.Basket.forEach(a => this.Total += a.qty * a.price);
   }
 
+  Thanks() {
+    this.orderResult.Status = false;
+    this.route.navigate(['/main']);
+  }
 }

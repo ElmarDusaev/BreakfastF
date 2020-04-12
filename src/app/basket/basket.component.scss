@@ -22,3 +22,9 @@ input{
     border: 1px solid green;
   }
 }
+
+.invoice td{
+  border: 1px dashed gray;
+  border-collapse: collapse;
+  padding: 5px;
+}
