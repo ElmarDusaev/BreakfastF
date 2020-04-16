@@ -16,7 +16,7 @@ export class ApiorderService {
 
 
   createOrder(orderInformation: IOrderInformation) {
-
+console.log(orderInformation);
     return this.http.post<IOrderResult>(GlobalConstants.apiURL + 'order/create', orderInformation, {withCredentials: true});
   }
 

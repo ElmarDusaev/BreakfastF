@@ -79,10 +79,13 @@ export class BasketComponent implements OnInit {
   createOrder() {
     if (this.form.valid) {
       const submitForm = {...this.form.value};
+
+      this.orderInformation.Address = submitForm.Address;
       this.orderInformation.DeliveryDateTime = submitForm.DeliveryTime;
       this.orderInformation.ClientName = submitForm.Name;
       this.orderInformation.Phone = submitForm.Phone;
 
+      console.log(this.orderInformation);
 
       this.apiorder.createOrder(this.orderInformation).subscribe({
         next: data => {
@@ -95,8 +98,8 @@ export class BasketComponent implements OnInit {
           this.MyDeliveryTime.nativeElement.value = '';
           this.Total = 0;
           this.orderResult = data;
-          this.orderResult.Status = true;
-
+          this.orderResult.status = true;
+          console.log(data);
         },
         error: e => console.error(e)
       });
@@ -146,7 +149,13 @@ export class BasketComponent implements OnInit {
   }
 
   Thanks() {
-    this.orderResult.Status = false;
+    this.orderResult.status = false;
     this.route.navigate(['/main']);
+  }
+
+  ClearCord() {
+    this.orderInformation.Latitude = 0;
+    this.orderInformation.Longtitude = 0;
+    console.log(this.orderInformation);
   }
 }

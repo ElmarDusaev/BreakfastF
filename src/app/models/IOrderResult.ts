@@ -1,8 +1,9 @@
 export class IOrderResult {
-  OrderID: number;
-  ClientName: string;
-  Sum: number;
-  Address: string;
-  Vishes: string;
-  Status: boolean;
+  orderID: number;
+  clientName: string;
+  sum: number;
+  address: string;
+  status: boolean;
+  orderDate: string;
+  orderTime: string;
 }

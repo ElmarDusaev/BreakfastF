@@ -2,7 +2,7 @@
 
 
 
-<ng-container *ngIf="orderResult.Status; then OrderSuccess; else OrderForm">
+<ng-container *ngIf="orderResult.status; then OrderSuccess; else OrderForm">
 </ng-container>
 
   <ng-template #OrderForm>
@@ -47,7 +47,7 @@
     <div class="form-group">
       <label for="Address">Адрес</label>
       <input type="text" #MyAddress class="form-control" name="Address" id="Address" [(ngModel)]="orderInformation.Address"
-             placeholder="Укажите адрес доставки" formControlName="Address">
+             placeholder="Укажите адрес доставки" formControlName="Address" (change)="ClearCord()">
       <button type="button" (click)="ShowMap=!ShowMap"
               class="btn btn-link right">{{ShowMap ? 'Свернуть' : 'Указать на карте'}}</button>
       <div *ngIf="ShowMap">
@@ -105,26 +105,26 @@
 <div class="d-flex justify-content-center">
     <div class="border p-3">
         <div>
-          <h5>Уважаемый Сириус Блэк</h5>
+          <h5>Уважаемый {{orderResult.clientName}}</h5>
 <div class="row">
 <div class="col">
 
           <table class="mt-3 invoice">
             <tr>
               <td>Ваш заказ №:</td>
-              <td>456</td>
+              <td>{{orderResult.orderID}}</td>
             </tr>
             <tr>
               <td>Дата доставки:</td>
-              <td>24 04 2020</td>
+              <td>{{orderResult.orderDate}}</td>
             </tr>
             <tr>
               <td>Время доставки:</td>
-              <td>8:00</td>
+              <td>{{orderResult.orderTime}}</td>
             </tr>
             <tr>
               <td>Сумма:</td>
-              <td>1 250 руб</td>
+              <td>{{orderResult.sum}} руб</td>
             </tr>
           </table>
 </div>
