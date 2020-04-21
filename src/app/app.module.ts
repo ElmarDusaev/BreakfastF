@@ -31,7 +31,7 @@ import { ProductsfilterPipe } from './pipes/productsfilter.pipe';
     MainComponent,
     NavigationComponent,
     PartnersComponent,
-    ProductsfilterPipe
+    ProductsfilterPipe,
   ],
   imports: [
     BrowserModule,
