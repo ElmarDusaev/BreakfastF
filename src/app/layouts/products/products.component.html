@@ -1,7 +1,83 @@
 <section class="products">
   <div class="container">
+
+
+
+    <section class="stats">
+      <header class="stats__header">
+        <!-- <h2 class="visually-hidden">Статистика Завтрак36.ru</h2> -->
+        <b class="stats__slogan">Завтрак у нас это выгодно и вкусно!</b>
+        <p class="stats__intro">Каждый завтрак требует точного подхода. Обратимся к статистике</p>
+      </header>
+      <table class="stats__list">
+        <tbody><tr>
+          <td class="stats__value">2000</td>
+          <td class="stats__field">Клиентов</td>
+        </tr>
+        <tr>
+          <td class="stats__value">12</td>
+          <td class="stats__field">Видов завтраков</td>
+        </tr>
+        <tr>
+          <td class="stats__value">70000</td>
+          <td class="stats__field">Лайков</td>
+        </tr>
+        <tr>
+          <td class="stats__value">500</td>
+          <td class="stats__field">Поставщиков продуктов</td>
+        </tr>
+        </tbody></table>
+    </section>
+
+    <div class="d-flex justify-content-center">
+
+      <div>
+        <div class="features__block">
+          <div class="features__img">
+            <picture>
+              <source srcset="" type="image/">
+              <img src="../../../assets/img/fast.png" alt="Быстро">
+            </picture>
+          </div>
+          <h3>Быстро</h3>
+          <p>Мы делаем свою работу быстро. <br> Доставляют лучшие водители города.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="features__block">
+          <div class="features__img">
+            <picture>
+              <source srcset="" type="image/">
+              <img src="../../../assets/img/meet.png" alt="Вкусно">
+            </picture>
+          </div>
+          <h3>Вкусно</h3>
+          <p>Наши завтраки очень вкусные. <br> Они будут отличным началом дня.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="features__block">
+          <div class="features__img">
+            <picture>
+              <source srcset="" type="image/">
+              <img src="../../../assets/img/Cook.png" alt="Качественно">
+            </picture>
+          </div>
+          <h3>Качественно</h3>
+          <p>Завтраки из свежих продуктов. <br> Делаются лучшими поварами города.</p>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
 <h2>Сегодня в меню</h2>
-<h5>Выберите завтрак</h5>
+<!--<h5>Выберите завтрак</h5>-->
 <div>
     <ul class="products__category">
       <li *ngFor="let c of data.categories"><a style="cursor: pointer" (click)="filter = c.id">#{{c.name}}</a></li>

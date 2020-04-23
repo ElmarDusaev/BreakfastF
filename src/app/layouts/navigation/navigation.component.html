@@ -3,8 +3,9 @@
     <a [routerLink]="['/main']">
       <img src="../../../assets/img/logo.png" alt="">
     </a>
-    <a [routerLink]="['/basket']" class="nav-basket right"><span
-      class="icon-local_grocery_storeshopping_cart"></span>
-      Корзина</a>
+    <a [routerLink]="['/basket']" class="nav-basket right" #Basket>
+      ({{totalInBasket}})
+      <span class="icon-local_grocery_storeshopping_cart"></span>
+       Корзина</a>
   </div>
 </div>

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {observable, Observable} from 'rxjs';
 import {GlobalConstants} from '../common/GlobalConstants';
 import {IBasket} from '../models/IBasket';
+import {IBasketReuslt} from '../models/IBasketReuslt';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ApibasketService {
   constructor(private http: HttpClient) { }
 
   addToBasket(id) {
-    return this.http.post<Observable<number>>(GlobalConstants.apiURL + 'basket/add', parseInt(id), {withCredentials: true});
+    return this.http.post<IBasketReuslt>(GlobalConstants.apiURL + 'basket/add', parseInt(id), {withCredentials: true});
   }
 
   getAllFromBasket() {

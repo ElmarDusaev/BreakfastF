@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {TotalBasketEventListenerService} from '../../services/total-basket-event-listener.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
+  totalInBasket: number;
 
-  constructor() { }
+  constructor(private totalEvent: TotalBasketEventListenerService) { }
 
   ngOnInit(): void {
+    this.totalEvent.TotalChangeEvent.subscribe(data => this.totalInBasket = data);
   }
 
 }

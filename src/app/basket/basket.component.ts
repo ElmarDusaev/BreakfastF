@@ -6,6 +6,7 @@ import {ApiorderService} from '../services/apiorder.service';
 import {IOrderResult} from '../models/IOrderResult';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {TotalBasketEventListenerService} from '../services/total-basket-event-listener.service';
 
 declare let google: any;
 
@@ -30,7 +31,7 @@ export class BasketComponent implements OnInit {
   form: FormGroup;
   mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
-  constructor(private apibasket: ApibasketService, private apiorder: ApiorderService, private route: Router) {
+  constructor(private apibasket: ApibasketService, private apiorder: ApiorderService, private route: Router, private TotalService: TotalBasketEventListenerService) {
   }
 
 
@@ -49,7 +50,6 @@ export class BasketComponent implements OnInit {
           this.Total = this.Total + item.price * item.qty;
       });
     });
-    console.log(this.Total);
   }
 
 
@@ -139,6 +139,7 @@ export class BasketComponent implements OnInit {
         const index = this.Basket.findIndex(d => d.id === id);
         this.Basket.splice(index, 1);
         this.CalcTotal();
+        this.TotalService.ProductRemove();
       }
     });
   }
